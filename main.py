@@ -41,7 +41,7 @@ def create_dic_stock() -> Dict[int, int]:
     }
     return stock
 
-def add_product(products, prices, stock) -> NoReturn:
+def add_product(products, prices, stock) -> None:
     """
     Función para agregar productos
     """
@@ -75,7 +75,7 @@ def add_product(products, prices, stock) -> NoReturn:
     product_stock = int(input("Stock: "))
     stock[id] = product_stock
 
-def delete_product(products, prices, stock) -> NoReturn:
+def delete_product(products, prices, stock) -> None:
     """
     Función para agregar productos
     """
@@ -105,7 +105,7 @@ def delete_product(products, prices, stock) -> NoReturn:
 
     print("\nProducto eliminado exitosamente!!")
 
-def update_product(products, prices, stock) -> NoReturn:
+def update_product(products, prices, stock) -> None:
     """
     Función para actualizar producto
     """
@@ -148,7 +148,7 @@ def update_product(products, prices, stock) -> NoReturn:
             break
         print("\nProducto actualizado exitosamente!!")
 
-def show_menu(products, prices, stock) -> NoReturn:
+def show_menu(products, prices, stock) -> None:
     while True:
         print()
         print('=' * 40)
@@ -170,7 +170,7 @@ def show_menu(products, prices, stock) -> NoReturn:
         elif opc == 4:
             break
 
-def main() -> NoReturn:
+def main():
     """
     Función principal
     """

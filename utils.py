@@ -9,7 +9,7 @@ def get_currency_format(currency_symbol, price) -> str:
     return "{}{:,.2f}".format(currency_symbol, price)
 
 
-def show_products_list(products, prices, stock) -> NoReturn:
+def show_products_list(products, prices, stock) -> None:
     # Definimos los nombres de los campos
     field_names = ['ID', 'Producto',
                    'Precio', 'Stock', ]
