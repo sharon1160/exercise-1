@@ -54,7 +54,9 @@ def add_product(products, prices, stock) -> NoReturn:
     id = 1
     # Ingresamos ID del producto
     while True:
+        # Ingresamos el ID del nuevo producto
         id = int(input("ID: "))
+
         # Validamos si el ID existe
         if exist_id(id, products) == False:
             break
@@ -83,7 +85,10 @@ def delete_product(products, prices, stock) -> NoReturn:
     print('=' * 40)
 
     while True:
+        # Ingresamos id del producto a eliminar
         id = int(input("Ingrese ID del producto a eliminar: "))
+
+        # Verificamos si existe el id
         if exist_id(id, products) == True:
             break
         else:
@@ -111,7 +116,10 @@ def update_product(products, prices, stock) -> NoReturn:
     print('=' * 40)
     print()
     while True:
+        # Ingresamos id del producto a actualizar
         id = int(input("Ingrese ID del producto a actualizar: "))
+
+        # Verificamos si existe el id
         if exist_id(id, products) == True:
             break
         else:
@@ -125,12 +133,15 @@ def update_product(products, prices, stock) -> NoReturn:
         print("[4] Salir")
         opc = int(input("Elija una opción: "))
         if opc == 1:
+            # Actualizamos el nombre del producto
             new_name = str(input("Nuevo nombre: "))
             products[id] = new_name.title()
         elif opc == 2:
+            # Actualizamos el precio del producto
             new_price = float(input("Nuevo precio: "))
             prices[id] = new_price
         elif opc == 3:
+            # Actualizamos el stock del producto
             new_stock = int(input("Nuevo stock: "))
             stock[id] = new_stock
         elif opc == 4:
