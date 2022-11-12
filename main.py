@@ -1,4 +1,4 @@
-from typing import Dict, NoReturn
+from typing import Dict
 
 from utils import *
 
@@ -50,18 +50,29 @@ def add_product(products, prices, stock) -> None:
     print(' ' * 8, "INGRESAR NUEVO PRODUCTO")
     print('=' * 40)
 
+    # Mostramos lista de productos
+    show_products_list(products, prices, stock)
+
+    print("\nNuevo Producto")
+    print("-" * 14)
+
     # Definimos ID por default
     id = 1
     # Ingresamos ID del producto
     while True:
-        # Ingresamos el ID del nuevo producto
-        id = int(input("ID: "))
+        # Manejando errores en el caso de que se ingrese un tipo de dato
+        # diferente a un entero
+        try:
+            # Ingresamos el ID del nuevo producto
+            id = int(input("ID: "))
 
-        # Validamos si el ID existe
-        if exist_id(id, products) == False:
-            break
-        else:
-            print("El ID ya existe, intente nuevamente...")
+            # Validamos si el ID existe
+            if exist_id(id, products) == False:
+                break
+            else:
+                print("El ID ya existe, intente nuevamente...")
+        except:
+            print("Ingrese sólo números, intente nuevamente...")
 
     # Ingresamos el producto
     product = str(input("Producto: "))
@@ -84,15 +95,26 @@ def delete_product(products, prices, stock) -> None:
     print(' ' * 10, "ELIMINAR PRODUCTO")
     print('=' * 40)
 
-    while True:
-        # Ingresamos id del producto a eliminar
-        id = int(input("Ingrese ID del producto a eliminar: "))
+    # Mostramos lista de productos
+    show_products_list(products, prices, stock)
 
-        # Verificamos si existe el id
-        if exist_id(id, products) == True:
-            break
-        else:
-            print("El ID NO existe!!, intente nuevamente...")
+    print("\nProducto a Eliminar")
+    print("-" * 19)
+
+    while True:
+        # Manejando errores en el caso de que se ingrese un tipo de dato
+        # diferente a un entero
+        try:
+            # Ingresamos id del producto a eliminar
+            id = int(input("Ingrese ID del producto a eliminar: "))
+
+            # Verificamos si existe el id
+            if exist_id(id, products) == True:
+                break
+            else:
+                print("El ID NO existe!!, intente nuevamente...")
+        except:
+            print("Ingrese sólo números, intente nuevamente...")
 
     # Eliminamos el producto
     del products[id]
@@ -103,7 +125,6 @@ def delete_product(products, prices, stock) -> None:
     # Eliminamos el stock
     del stock[id]
 
-    print("\nProducto eliminado exitosamente!!")
 
 def update_product(products, prices, stock) -> None:
     """
@@ -115,15 +136,28 @@ def update_product(products, prices, stock) -> None:
     print(' ' * 10, "ACTUALIZAR PRODUCTO")
     print('=' * 40)
     print()
-    while True:
-        # Ingresamos id del producto a actualizar
-        id = int(input("Ingrese ID del producto a actualizar: "))
 
-        # Verificamos si existe el id
-        if exist_id(id, products) == True:
-            break
-        else:
-            print("El ID NO existe!!, intente nuevamente...")
+    # Mostramos lista de productos
+    show_products_list(products, prices, stock)
+
+    print("\nProducto a Actualizar")
+    print("-" * 21)
+
+    while True:
+        # Manejando errores en el caso de que se ingrese un tipo de dato
+        # diferente a un entero
+        try:
+            # Ingresamos id del producto a actualizar
+            id = int(input("Ingrese ID del producto a actualizar: "))
+
+            # Verificamos si existe el id
+            if exist_id(id, products) == True:
+                break
+            else:
+                print("El ID NO existe!!, intente nuevamente...")
+        except:
+            print("Ingrese sólo números, intente nuevamente...")
+
     while True:
         print()
         print(f"Ingrese campo a actualizar del producto {id}:")
@@ -131,22 +165,42 @@ def update_product(products, prices, stock) -> None:
         print("[2] Precio")
         print("[3] Stock")
         print("[4] Salir")
-        opc = int(input("Elija una opción: "))
-        if opc == 1:
-            # Actualizamos el nombre del producto
-            new_name = str(input("Nuevo nombre: "))
-            products[id] = new_name.title()
-        elif opc == 2:
-            # Actualizamos el precio del producto
-            new_price = float(input("Nuevo precio: "))
-            prices[id] = new_price
-        elif opc == 3:
-            # Actualizamos el stock del producto
-            new_stock = int(input("Nuevo stock: "))
-            stock[id] = new_stock
-        elif opc == 4:
-            break
-        print("\nProducto actualizado exitosamente!!")
+
+        # Manejando errores en el caso de que se ingrese caracteres
+        # u otro tipo de dato diferente a un entero
+        try:
+            opc = int(input("Elija una opción (1-4): "))
+            if opc == 1:
+                # Actualizamos el nombre del producto
+                new_name = str(input("Nuevo nombre: "))
+                products[id] = new_name.title()
+                print(f"\nNombre del producto {id} actualizado exitosamente!!")
+            elif opc == 2:
+                # Validando que el precio sea un entero o un flotante
+                try:
+                    # Actualizamos el precio del producto
+                    new_price = float(input("Nuevo precio: "))
+                    prices[id] = new_price
+                    print(f"\nPrecio del producto {id} actualizado exitosamente!!")
+                except:
+                    print("\nIngrese números enteros o decimales, intente nuevamente...")
+            elif opc == 3:
+                # Validando que el stock sea un entero
+                try:
+                    # Actualizamos el stock del producto
+                    new_stock = int(input("Nuevo stock: "))
+                    stock[id] = new_stock
+                    print(f"\nStock del producto {id} actualizado exitosamente!!")
+                except:
+                    print("\nIngrese números enteros, intente nuevamente...")
+            elif opc == 4:
+                print("Saliendo del menú...")
+                break
+            else:
+                print("Opción inválida, intente nuevamente...")
+                continue
+        except:
+            print("Ingrese un número del 1 al 4, intente nuevamente...")
 
 def show_menu(products, prices, stock) -> None:
     while True:
@@ -160,15 +214,26 @@ def show_menu(products, prices, stock) -> None:
         print("[2] Eliminar")
         print("[3] Actualizar")
         print("[4] Salir")
-        opc = int(input("Elija una opción: "))
-        if opc == 1:
-            add_product(products, prices, stock)
-        elif opc == 2:
-            delete_product(products, prices, stock)
-        elif opc == 3:
-            update_product(products, prices, stock)
-        elif opc == 4:
-            break
+
+        # Manejando errores en el caso de que el usuario ingrese caracteres
+        # u otro tipo de dato diferente a un entero
+        try:
+            opc = int(input("Elija una opción: "))
+            if opc == 1:
+                add_product(products, prices, stock)
+                print("\nProducto agregado exitosamente!!")
+            elif opc == 2:
+                delete_product(products, prices, stock)
+                print("\nProducto eliminado exitosamente!!")
+            elif opc == 3:
+                update_product(products, prices, stock)
+            elif opc == 4:
+                print("\nSaliendo del menú...")
+                break
+            else:
+                print("Opción inválida, intente nuevamente...")
+        except:
+            print("Ingrese un número del 1 al 4, intente nuevamente...")
 
 def main():
     """

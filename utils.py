@@ -1,4 +1,3 @@
-from typing import NoReturn
 from prettytable import PrettyTable
 from config import CURRENCY_SYMBOL
 
